@@ -7,6 +7,19 @@ console.log("user flipped" + cardOne);
 console.log("user flipped" + cardTwo);
 console.log("user flipped" + cardThree);
 console.log("user flipped" + cardFour);*/
+
+function createBoard()
+{
+	for(let i = 0; i < cards.length; i++)
+	{
+
+		let cardElement = document.createElement('img');
+		cardElement.setAttribute('src',"images/back.png");
+		cardElement.setAttribute('data-id', i);
+		cardElement.addEventListener('click',flipcard);
+		document.getElementById('game-board').appendChild(cardElement);
+	}
+}
 const cards = [
 {
 	rank: "queen",
@@ -40,18 +53,19 @@ function checkForMatch()
 		alert("sorry, try again.");
 	}
 }
-function flipcard(cardId)
+function flipcard()
 {
+	cardId = this.getAttribute('data-id');
 	console.log("user flipped" + " " + cards[cardId].rank);
 	console.log(cards[cardId].cardImage);
 	console.log(cards[cardId].suit);
 	cardsInPlay.push(cards[cardId].rank);
+	this.setAttribute('src',cards[cardId].cardImage);
 	if(cardsInPlay.length === 2)
 	{
 	checkForMatch();
 	}
 
 }
-flipcard(0);
-flipcard(2);
 
+createBoard();
